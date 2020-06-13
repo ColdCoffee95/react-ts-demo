@@ -43,12 +43,14 @@ const SiderMenu: FC = () => {
       return isMatch;
     });
 
+    const isFirstPage = currentRoute && !(currentRoute.isMenu === false && currentRoute.pid === 0);
+
     //如果需要得到默认展开的菜单，需要找到pid为0的route
-    if (type === 'open' && currentRoute) {
+    if (type === 'open' && isFirstPage) {
       return findOpenKeys([], currentRoute as RouteInterface);
     }
     //如果需要得到默认选中的菜单，需要找到isMenu不为false,的route
-    if (type === 'selected' && currentRoute) {
+    if (type === 'selected' && isFirstPage) {
       return findSelectedKeys([], currentRoute as RouteInterface);
     }
     return [];
