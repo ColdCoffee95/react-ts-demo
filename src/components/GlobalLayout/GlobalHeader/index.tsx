@@ -1,17 +1,14 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
 import { Avatar, Dropdown, Menu } from "antd";
 const styles = require('./index.less');
 
 interface HeaderProps {
-  onCollapsedChange(collapsed: boolean): void,
-  collapsed: boolean
+  onCollapsedChange(collapsed: boolean): void;
+  collapsed: boolean;
 }
 
 const GlobalHeader: FC<HeaderProps> = (props: HeaderProps) => {
@@ -41,11 +38,10 @@ const GlobalHeader: FC<HeaderProps> = (props: HeaderProps) => {
     })}
     <Dropdown overlay={dropdownMenu}>
       <a className={styles.userInfo} onClick={(e): void => e.preventDefault()}>
-        <Avatar size="small"/>
+        <Avatar size="small" />
         <span className={styles.userName}>username</span>
       </a>
     </Dropdown>
   </div>;
-
 };
 export default GlobalHeader;

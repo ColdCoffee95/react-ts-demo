@@ -1,14 +1,8 @@
 import React,{FC} from "react";
-
-const MiniIndex: FC = (props: any) => {
+import {Link} from "react-router-dom";
+const MiniIndex: FC = () => {
   return <div>
-    123123333333333333
-    123123333333333333
-    123123333333333333
-    123123333333333333
-    123123333333333333
-    123123333333333333
-    123123333333333333123123333333333333123123333333333333123123333333333333123123333333333333
+    <Link to={'/mini/1'}>123</Link>
   </div>;
 };
 export default MiniIndex;

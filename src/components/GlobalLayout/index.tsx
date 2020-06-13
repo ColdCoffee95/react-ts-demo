@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 
 import GlobalHeader from './GlobalHeader';
 import ContentComponent from './ContentComponent';
-import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import routerConfig from "../../routers/routerConfig";
+import { Switch, Redirect } from 'react-router-dom';
+import { routes as routerConfig } from "../../routers/routerConfig";
 import SiderMenu from './SiderMenu';
 const styles = require('./index.less');
 
@@ -14,7 +14,6 @@ interface LayoutProps {
 const GlobalLayout: FC<LayoutProps> = (props: LayoutProps) => {
   const { Header, Footer, Sider, Content } = Layout;
   const [collapsed, setcollapsed] = useState(false);
-  console.log('routerConfig', routerConfig);
   return <Layout className={styles.globalLayout}>
     <Sider
       collapsible
@@ -33,7 +32,7 @@ const GlobalLayout: FC<LayoutProps> = (props: LayoutProps) => {
         <Switch>
           {
             routerConfig.filter(r => r.path).map(route => (
-              <ContentComponent component={route.component as FC} path={route.path as string} name={route.name} key={route.id}></ContentComponent>
+              <ContentComponent key={route.id} {...route}></ContentComponent>
             ))
           }
           <Redirect to='/404'></Redirect>

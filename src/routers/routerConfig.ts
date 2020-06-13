@@ -5,7 +5,7 @@ import DruidDetail from "../pages/Druid/detail";
 import MiniIndex from "../pages/Mini";
 import NotFound from "../pages/NotFound";
 
-interface RouteInterface {
+export interface RouteInterface {
   id: number;
   pid: number;
   path?: string;
@@ -13,8 +13,17 @@ interface RouteInterface {
   icon?: FC;
   component?: FC;
   isMenu?: boolean;
+  exact?: boolean;
 }
-const routes: Array<RouteInterface> = [
+export const routes: Array<RouteInterface> = [
+  {
+    id: 888,
+    pid: 0,
+    path: "/",
+    exact: true,
+    name: "首页",
+    isMenu: false,
+  },
   {
     id: 1,
     pid: 0,
@@ -24,15 +33,16 @@ const routes: Array<RouteInterface> = [
   {
     id: 2,
     pid: 1,
-    path: "/druid/list",
+    path: "/druid",
+    exact: true,
     name: "druid列表",
     icon: SwitcherOutlined,
     component: DruidIndex,
   },
   {
     id: 3,
-    pid: 1,
-    path: '/druid/detail/:id',
+    pid: 2,
+    path: "/druid/:id",
     name: "druid详情",
     component: DruidDetail,
     isMenu: false,
@@ -50,7 +60,23 @@ const routes: Array<RouteInterface> = [
     name: "微前端列表",
     icon: TranslationOutlined,
     component: MiniIndex,
-    
+  },
+  {
+    id: 6,
+    pid: 0,
+    path: "/mini",
+    exact: true,
+    name: "微前端列表2",
+    icon: TranslationOutlined,
+    component: MiniIndex,
+  },
+  {
+    id: 7,
+    pid: 6,
+    path: "/mini/:id",
+    name: "微前端详情",
+    component: DruidDetail,
+    isMenu: false,
   },
   {
     id: 999,
@@ -61,4 +87,3 @@ const routes: Array<RouteInterface> = [
     isMenu: false,
   },
 ];
-export default routes;

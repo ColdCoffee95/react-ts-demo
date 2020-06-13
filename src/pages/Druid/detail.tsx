@@ -1,6 +1,6 @@
 import React,{FC} from "react";
 
-const DruidDetail: FC = (props: any) => {
+const DruidDetail: FC = () => {
   return <div>
     DruidDetail
   </div>;

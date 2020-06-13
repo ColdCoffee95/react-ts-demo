@@ -1,44 +1,35 @@
 import React, { FC } from "react";
-import { Switch, Route, Link, useLocation } from 'react-router-dom';
-import { Breadcrumb } from 'antd';
-import routerConfig from "../../../routers/routerConfig";
+import { Route, Link, matchPath, useLocation } from 'react-router-dom';
+import { Breadcrumb, Card } from 'antd';
+import { routes as routerConfig, RouteInterface } from "../../../routers/routerConfig";
 
-interface ContentComponentInterface {
-    path: string,
-    name: string,
-    component: FC,
-}
-interface RouteInterface {
-    id: number;
-    path?: string;
-    name: string;
-    icon?: FC;
-    component?: FC;
-    pid?: number;
-    isMenu?: boolean;
-}
-const ContentComponent: FC<ContentComponentInterface> = (props: ContentComponentInterface) => {
+const ContentComponent: FC<RouteInterface> = (props: RouteInterface) => {
+    const { pathname } = useLocation();
     //递归寻找当前路由前的面包屑
-    function findRouteParent(arr: RouteInterface[], currentRoute: RouteInterface): Array<RouteInterface> {
+    const findRouteParent = (arr: RouteInterface[], currentRoute: RouteInterface): Array<RouteInterface> => {
         currentRoute.path && arr.unshift(currentRoute);
         if (currentRoute.pid) {
             const findRoute = routerConfig.find(r => r.id === currentRoute.pid);
             findRouteParent(arr, findRoute as RouteInterface);
         }
         return arr;
-    }
+    };
     //获取面包屑列表
-    function getBreadcrumbItems(): Array<RouteInterface> {
-        const location = useLocation();
-        console.log('location', location);
+    const getBreadcrumbItems = (): Array<RouteInterface> => {
         let arr: RouteInterface[] = [];
-        const currentRoute = routerConfig.find(r => r.path === location.pathname);
+        const currentRoute = routerConfig.find(r => {
+            const isMatch = matchPath(pathname, {
+                path: r.path
+            });
+            return isMatch && isMatch.isExact;
+        });
+
         arr = findRouteParent(arr, currentRoute as RouteInterface);
+
         return arr;
-    }
+    };
     const breadcrumbItems = getBreadcrumbItems();
-    console.log('breadcrumbItems',breadcrumbItems);
-    return <div>
+    return <Card>
         <Breadcrumb>
             {
                 breadcrumbItems.map(b => (
@@ -49,9 +40,9 @@ const ContentComponent: FC<ContentComponentInterface> = (props: ContentComponent
             }
 
         </Breadcrumb>
-        <Route path={props.path}>
-            <props.component></props.component>
+        <Route path={props.path} exact={!!props.exact}>
+            {props.component && <props.component></props.component>}
         </Route>
-    </div>;
+    </Card>;
 };
 export default ContentComponent;
