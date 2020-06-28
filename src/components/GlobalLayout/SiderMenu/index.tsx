@@ -31,16 +31,10 @@ const SiderMenu: FC = () => {
   //通过当前路由选中相应菜单
   const getDefaultKeys = (type: string): Array<string> => {
     const currentRoute = routerConfig.find(r => {
-      let isMatch = false;
-      if (r.path?.includes(':')) {
-        const isFind = matchPath(pathname, {
-          path: r.path
-        });
-        isMatch = isFind ? isFind.isExact : false;
-      } else {
-        isMatch = r.path === pathname;
-      }
-      return isMatch;
+      const isFind = matchPath(pathname, {
+        path: r.path
+      });
+      return isFind?.isExact || false;
     });
 
     const isFirstPage = currentRoute && !(currentRoute.isMenu === false && currentRoute.pid === 0);

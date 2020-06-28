@@ -8,6 +8,7 @@ module.exports = {
     entry: {
       app: path.resolve(__dirname, 'src', 'index.tsx')
     },
+
     resolve: {
       alias: {
         components: path.resolve(__dirname, 'src/components/'),
@@ -24,17 +25,18 @@ module.exports = {
     devServer: {
       host: "0.0.0.0",
       port: 8081,
-      historyApiFallback:true,
-      publicPath:'/'
+      historyApiFallback: true,
+      publicPath: '/'
     },
-    output:{
-      publicPath:'/'
+    output: {
+      publicPath: '/'
     }
   },
   prod: {
     output: {
       publicPath: `/`,
-    }
+    },
+    devtool: 'eval-cheap-source-map'
 
   }
 };

@@ -1,0 +1,6 @@
+{
+  "app.js": "/app.async.js",
+  "runtime~app.js": "/index.js",
+  "styles.js": "/styles.async.js",
+  "index.html": "/index.html"
+}
